@@ -28,8 +28,9 @@ That's it!
 
 ## Deploy an App
 
-Right now Buildstep supports buildpacks for Node.js, Ruby, Python, [and more](https://github.com/progrium/buildstep#supported-buildpacks). It's not hard to add more, [go add more](https://github.com/progrium/buildstep#adding-buildpacks)! Let's deploy
-the Heroku Node.js sample app. All you have to do is add a remote to name the app. It's created on-the-fly.
+Right now Buildstep supports buildpacks for Node.js, Ruby, Python, [and more](https://github.com/progrium/buildstep#supported-buildpacks). It's not hard to add more, [go add more](https://github.com/progrium/buildstep#adding-buildpacks)!
+Please check the documentation for your particular build pack as you may need to include configuration files (such as a Procfile) in your project root.
+Let's deploy the [Heroku Node.js sample app](https://github.com/heroku/node-js-sample). All you have to do is add a remote to name the app. It's created on-the-fly.
 
     $ cd node-js-sample
     $ git remote add progrium git@progriumapp.com:node-js-app
@@ -75,6 +76,10 @@ To setup environment for your application, create file `/home/git/APP_NAME/ENV`.
     export MONGODB_PASSWORD=password
 
 Next time the application is deployed, those variables would be exposed by `start` script.
+
+## SSL support
+
+Dokku provides easy SSL support from the box. To enable SSL connection to your application, copy `.crt` and `.key` file into `/home/git/:app/ssl` folder (notice, file names should be `server.crt` and `server.key`, respectively). Redeployment of application will be needed to apply SSL configuration. Once it redeployed, application will be accessible by `https://` (redirection from `http://` is applied as well).
 
 ## Advanced installation (for development)
 
@@ -138,7 +143,6 @@ You can use [Github Issues](https://github.com/progrium/dokku/issues), check [Tr
 ## Ideas for Improvements
 
  * Custom domain support for apps
- * HTTPS support on default domain
  * Support more buildpacks (see Buildstep)
  * Use dokku as the system user instead of git
  * Heroku-ish commands to be run via SSH (like [Dokuen](https://github.com/peterkeen/dokuen#available-app-sub-commands))
